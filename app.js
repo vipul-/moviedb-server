@@ -3,9 +3,16 @@ require('dotenv').config({
     path: 'variables.env'
 });
 const express = require('express');
+const mongoose = require('mongoose');
+
 
 //Config
 const app = express();
+
+mongoose.connect(`mongodb://${process.env.dbUser}:${process.env.dbPass}@${process.env.dbUrl}`, {
+    useNewUrlParser: true
+});
+
 
 //Routes
 app.get('/find', (req, res) => {
