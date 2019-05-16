@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 //Config
 const app = express();
 
-mongoose.connect(`mongodb://${process.env.dbUser}:${process.env.dbPass}@${process.env.dbUrl}`, {
+mongoose.connect(process.env.dbURI, {
     useNewUrlParser: true
 });
 
