@@ -30,3 +30,10 @@ app.get('/search', (req, res) => {
 app.listen(process.env.PORT, () => {
     console.log(`Server started on port ${process.env.PORT}`);
 });
+
+process.on('SIGINT', () => {
+    mongoose.connection.close(function () {
+        console.log("Mongoose connection disconnected due to application termination");
+        process.exit(0)
+    });
+});
