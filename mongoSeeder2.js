@@ -38,16 +38,16 @@ const genreArray = [
     "Western"
 ];
 
-let randomGenre = () => {
+const randomGenre = () => {
     return faker.random.arrayElement(genreArray);
 };
 
 
 //Random Length array generator
-const arrayGenerator = (max, elementGenerator) => {
+const arrayGenerator = (min, max, elementGenerator) => {
     let generatedArray = [];
     let randomnum = faker.random.number({
-        min: 1,
+        min,
         max
     });
     for (let i = 1; i <= randomnum; i++) {
@@ -70,12 +70,12 @@ for (let i = 0; i < process.env.seedCount; i++) {
         runtime: faker.random.number({min:40, max:190}),
         favourite_count: faker.random.number(10000),
         watchlist_count: faker.random.number(10000),
-        production_countries: arrayGenerator(8, faker.address.country),
-        production_companies: arrayGenerator(8, faker.company.companyName),
-        genre: arrayGenerator(6, randomGenre),
+        production_countries: arrayGenerator(1, 8, faker.address.country),
+        production_companies: arrayGenerator(1, 8, faker.company.companyName),
+        genre: arrayGenerator(1, 6, randomGenre),
         average_rating: faker.finance.amount(0.1,5,1),
-        keywords: arrayGenerator(10, faker.random.word),
-        cast: arrayGenerator(20, faker.name.findName)
+        keywords: arrayGenerator(3, 10, faker.random.word),
+        cast: arrayGenerator(12, 60, faker.name.findName)
     };
 
 
