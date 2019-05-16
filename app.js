@@ -4,6 +4,7 @@ require('dotenv').config({
 });
 const express = require('express');
 const mongoose = require('mongoose');
+const Movie = require("./models/movie");
 
 
 //Config
@@ -15,6 +16,28 @@ mongoose.connect(process.env.dbURI, {
 
 
 //Routes
+app.get('/upcomming', (req, res) => {
+    
+    Movie
+        .find({
+            status: {
+                $ne: "Released"
+            },
+            releaseDate: {
+                $gte: new Date()
+            },
+        })
+        .sort({'date': 1})
+        .limit(5)
+        .exec((error, result) => {
+            if (error) {
+                console.log(error);
+            } else {
+                res.send(result);
+            }
+        });
+});
+
 app.get('/find', (req, res) => {
     res.send("This is the /find route");
 });
