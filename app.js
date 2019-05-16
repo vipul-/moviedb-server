@@ -17,7 +17,6 @@ mongoose.connect(process.env.dbURI, {
 
 //Routes
 app.get('/upcomming', (req, res) => {
-    
     Movie
         .find({
             status: {
@@ -27,7 +26,7 @@ app.get('/upcomming', (req, res) => {
                 $gte: new Date()
             },
         })
-        .sort({'date': 1})
+        .sort({'releaseDate': 1})
         .limit(5)
         .exec((error, result) => {
             if (error) {
