@@ -17,6 +17,8 @@ mongoose.connect(process.env.dbURI, {
 
 //Routes
 app.get('/upcomming', (req, res) => {
+    let page = req.query.page; //page starts with index 0
+
     Movie
         .find({
             status: {
@@ -27,6 +29,7 @@ app.get('/upcomming', (req, res) => {
             },
         })
         .sort({'releaseDate': 1})
+        .skip(page*5) //page starts with index 0
         .limit(5)
         .exec((error, result) => {
             if (error) {
