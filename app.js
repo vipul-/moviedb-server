@@ -5,6 +5,7 @@ require('dotenv').config({
 const express = require('express');
 const mongoose = require('mongoose');
 const Movie = require("./models/movie");
+const dbQuery = require('./mongoQuery');
 
 
 //Config
@@ -19,25 +20,27 @@ mongoose.connect(process.env.dbURI, {
 app.get('/upcomming', (req, res) => {
     let page = req.query.page; //page starts with index 0
 
-    Movie
-        .find({
-            status: {
-                $ne: "Released"
-            },
-            releaseDate: {
-                $gte: new Date()
-            },
-        })
-        .sort({'releaseDate': 1})
-        .skip(page*5) //page starts with index 0
-        .limit(5)
-        .exec((error, result) => {
-            if (error) {
-                console.log(error);
-            } else {
-                res.send(result);
-            }
-        });
+    dbQuery.upcomming(page).exec((error, result) => {
+        if (error) {
+            console.log(error);
+            res.send("An error occured while quering the database.");
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+
+app.get('/toprated', (req, res) => {
+    let page = req.query.page; //page starts with index 0
+
+    dbQuery.topRated(page).exec((error, result) => {
+        if (error) {
+            console.log(error);
+        } else {
+            res.send(result);
+        }
+    });
 });
 
 app.get('/find', (req, res) => {
