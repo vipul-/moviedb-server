@@ -89,7 +89,7 @@ let seedData = {
 //For In Theatres
 for (let i = 0; i < 80; i++) {
     seedData.inTheatres = true;
-    seedData.releaseDate = faker.date.recent();
+    seedData.releaseDate = faker.date.recent(60);
     seedData.status = "Released";
     Movie.create(seedData, (error, addedData) => {
         if (error) {
@@ -103,7 +103,7 @@ for (let i = 0; i < 80; i++) {
 //For Upcomming
 for (let i = 0; i < 120; i++) {
     seedData.inTheatres = false;
-    seedData.releaseDate = faker.date.soon();
+    seedData.releaseDate = faker.date.future(1);
     seedData.status = "Post Production";
     seedData.revenue = 0;
     Movie.create(seedData, (error, addedData) => {
@@ -118,7 +118,7 @@ for (let i = 0; i < 120; i++) {
 //For Past movies
 for (let i = 0; i < 1000; i++) {
     seedData.inTheatres = false;
-    seedData.releaseDate = faker.date.past();
+    seedData.releaseDate = faker.date.past(40);
     seedData.status = "Post Production";
     Movie.create(seedData, (error, addedData) => {
         if (error) {
@@ -132,7 +132,7 @@ for (let i = 0; i < 1000; i++) {
 //For Future movies
 for (let i = 0; i < 600; i++) {
     seedData.inTheatres = false;
-    seedData.releaseDate = faker.date.future();
+    seedData.releaseDate = faker.date.future(3);
     seedData.status = "In Production";
     seedData.revenue = 0;
     Movie.create(seedData, (error, addedData) => {
