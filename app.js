@@ -31,10 +31,22 @@ app.get('/upcomming', (req, res) => {
 });
 
 
-app.get('/toprated', (req, res) => {
+app.get('/top_rated', (req, res) => {
     let page = req.query.page; //page starts with index 0
 
     dbQuery.topRated(page).exec((error, result) => {
+        if (error) {
+            console.log(error);
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+app.get('/in_theatres', (req, res) => {
+    let page = req.query.page; //page starts with index 0
+
+    dbQuery.inTheatres(page).exec((error, result) => {
         if (error) {
             console.log(error);
         } else {
