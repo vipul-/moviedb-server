@@ -40,6 +40,27 @@ app.get('/upcomming', (req, res) => {
         });
 });
 
+app.get('/toprated', (req, res) => {
+    let page = req.query.page; //page starts with index 0
+
+    Movie
+        .find({
+            status: {
+                $ne: "Released"
+            },
+        })
+        .sort({ 'average_rating': -1 })
+        .skip(page * 5) //page starts with index 0
+        .limit(5)
+        .exec((error, result) => {
+            if (error) {
+                console.log(error);
+            } else {
+                res.send(result);
+            }
+        });
+});
+
 app.get('/find', (req, res) => {
     res.send("This is the /find route");
 });
