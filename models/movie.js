@@ -17,7 +17,8 @@ const movieSchema = new mongoose.Schema({
     genre: Array,
     average_rating: Number,
     keywords: Array,
-    cast: Array
+    cast: Array,
+    inTheatres: Boolean
 });
 
 module.exports = mongoose.model("Movie", movieSchema);
