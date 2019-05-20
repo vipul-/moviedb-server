@@ -38,7 +38,7 @@ const topRated = (page) => {
         })
         .skip(page * 5) //page starts with index 0
         .limit(5);
-}
+};
 
 const inTheatres = (page) => {
     return Movie
@@ -50,12 +50,19 @@ const inTheatres = (page) => {
         })
         .skip(page * 5) //page starts with index 0
         .limit(5);
-}
+};
 
+const search = (searchString, page) => {
+    return Movie
+        .find({$text: { $search: searchString}})
+        .skip(page * 5) //page starts with index 0
+        .limit(5);
+};
 
 
 module.exports = {
     upcomming,
     topRated,
-    inTheatres
+    inTheatres,
+    search
 }
