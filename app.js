@@ -3,18 +3,11 @@ require('dotenv').config({
     path: 'variables.env'
 });
 const express = require('express');
-const mongoose = require('mongoose');
-const Movie = require("./models/movie");
 const dbQuery = require('./mongoQuery');
 
 
 //Config
 const app = express();
-
-mongoose.connect(process.env.dbURI, {
-    useNewUrlParser: true
-});
-
 
 //Routes
 app.get('/upcomming', (req, res) => {
@@ -90,11 +83,4 @@ app.get('/search', (req, res) => {
 
 app.listen(process.env.PORT, () => {
     console.log(`Server started on port ${process.env.PORT}`);
-});
-
-process.on('SIGINT', () => {
-    mongoose.connection.close(function () {
-        console.log("Mongoose connection disconnected due to application termination");
-        process.exit(0)
-    });
 });

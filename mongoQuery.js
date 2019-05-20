@@ -87,3 +87,10 @@ module.exports = {
     discover,
     find
 }
+
+process.on('SIGINT', () => {
+    mongoose.connection.close(function () {
+        console.log("Mongoose connection disconnected due to application termination");
+        process.exit(0)
+    });
+});
