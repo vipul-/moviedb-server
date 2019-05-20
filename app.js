@@ -60,11 +60,17 @@ app.get('/find', (req, res) => {
 });
 
 app.get('/discover', (req, res) => {
-    res.send("This is the /find route");
+    dbQuery.discover(req.query).exec((error, result) => {
+        if (error) {
+            console.log(error);
+        } else {
+            res.send(result);
+        }
+    });
 });
 
 app.get('/search', (req, res) => {
-    let searchString = req.query.search;
+    let searchString = req.query.query;
     let page = req.query.page; //page starts with index 0
 
     dbQuery.search(searchString, page).exec((error, result) => {
