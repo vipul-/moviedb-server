@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);
 
 const movieSchema = new mongoose.Schema({
     title: String,
-    language: String,
+    mainLanguage: String,
     overview: String,
     posterPath: String,
     status: String,
@@ -17,7 +18,13 @@ const movieSchema = new mongoose.Schema({
     genre: Array,
     average_rating: Number,
     keywords: Array,
-    cast: Array
+    cast: Array,
+    inTheatres: Boolean
+});
+
+movieSchema.index({
+    title: 'text',
+    keywords: 'text'
 });
 
 module.exports = mongoose.model("Movie", movieSchema);

@@ -31,18 +31,38 @@ const topRated = (page) => {
         .find({
             status: {
                 $ne: "Released"
-            },
+            }
         })
         .sort({
             'average_rating': -1
         })
         .skip(page * 5) //page starts with index 0
         .limit(5);
-}
+};
 
+const inTheatres = (page) => {
+    return Movie
+        .find({
+            inTheatres: true
+        })
+        .sort({
+            'releaseDate': -1
+        })
+        .skip(page * 5) //page starts with index 0
+        .limit(5);
+};
+
+const search = (searchString, page) => {
+    return Movie
+        .find({$text: { $search: searchString}})
+        .skip(page * 5) //page starts with index 0
+        .limit(5);
+};
 
 
 module.exports = {
     upcomming,
-    topRated
+    topRated,
+    inTheatres,
+    search
 }
