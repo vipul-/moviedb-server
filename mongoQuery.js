@@ -75,11 +75,15 @@ const discover = (query) => {
         ]);
 }
 
+const find = (id) => {
+    return Movie.findById(id);
+};
 
 module.exports = {
     upcomming,
     topRated,
     inTheatres,
     search,
-    discover
+    discover,
+    find
 }

@@ -55,8 +55,14 @@ app.get('/in_theatres', (req, res) => {
     });
 });
 
-app.get('/find', (req, res) => {
-    res.send("This is the /find route");
+app.get('/find/:id', (req, res) => {
+    dbQuery.find(req.params.id).exec((error, result) => {
+        if (error) {
+            console.log(error);
+        } else {
+            res.send(result);
+        }
+    });
 });
 
 app.get('/discover', (req, res) => {
